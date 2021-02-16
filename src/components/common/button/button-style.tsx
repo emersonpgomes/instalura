@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { getVariantColor } from '../../../utils/get-variant-color';
+import { getBreakpointsMedia, getVariantColor } from '../../theme/utils';
 import { TextStyleVariants } from '../text/text-style';
 
 const ButtonGhostStyle = css`
@@ -30,7 +30,13 @@ export const ButtonStyle = styled.button<ButtonStyleProps>`
   transition: opacity ${({ theme }) => theme.transition};
   border-radius: ${({ theme }) => theme.borderRadius};
 
-  ${TextStyleVariants.smallestException}
+  ${getBreakpointsMedia({
+    xs: TextStyleVariants.smallestException,
+    md: css`
+      padding: 12px 43px;
+      ${TextStyleVariants.paragraph1}
+    `,
+  })}
 
   ${({ ghost }) => (ghost ? ButtonGhostStyle : ButtonDefaultStyle)}
 

@@ -1,4 +1,6 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import { getBreakpointsMedia } from '../../theme/utils';
+import { TextStyleVariants } from '../text/text-style';
 
 export const MenuStyle = styled.nav`
   display: flex;
@@ -8,12 +10,39 @@ export const MenuStyle = styled.nav`
   margin-top: 18px;
   padding-left: 28px;
   padding-right: 28px;
+
+  ${getBreakpointsMedia({
+    md: css`
+      justify-content: flex-start;
+      margin-top: 32px;
+      margin-left: auto;
+      margin-right: auto;
+      width: 100%;
+      padding: 0 16px;
+      max-width: 768px;
+    `,
+    lg: css`
+      max-width: 1160px;
+    `,
+    xl: css`
+      max-width: 1222px;
+    `,
+  })}
 `;
 
 export const LeftSideMenuStyle = styled.div`
   padding: 0;
   margin: 0;
   order: 1;
+
+  ${getBreakpointsMedia({
+    md: css`
+      width: 131px;
+      height: 32px;
+      order: initial;
+      padding-right: 16px;
+    `,
+  })}
 `;
 
 export const CentralSideMenuStyle = styled.div`
@@ -26,9 +55,22 @@ export const CentralSideMenuStyle = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-top: 17px;
-  border-top: 1px solid ${({ theme }) => theme.colors.borders.main.color};
-  border-bottom: 1px solid ${({ theme }) => theme.colors.borders.main.color};
+  border-top: 1px solid #88989e;
+  border-bottom: 1px solid #88989e;
   padding: 12px;
+
+  ${getBreakpointsMedia({
+    md: css`
+      max-width: 332px;
+      justify-content: space-between;
+      flex: 1;
+      order: initial;
+      border: none;
+      margin: 0;
+      padding-top: 0;
+      padding-bottom: 0;
+    `,
+  })}
 
   a {
     text-align: center;
@@ -36,6 +78,11 @@ export const CentralSideMenuStyle = styled.div`
     text-decoration: none;
     color: #88989e;
     transition: 200ms ease-in-out;
+
+    ${getBreakpointsMedia({
+      xs: TextStyleVariants.smallestException,
+      md: TextStyleVariants.paragraph1,
+    })}
 
     &:hover,
     &:focus {
@@ -52,4 +99,10 @@ export const RightSideMenuStyle = styled.div`
   flex: 1;
   order: 2;
   justify-content: flex-end;
+
+  ${getBreakpointsMedia({
+    md: css`
+      order: initial;
+    `,
+  })}
 `;

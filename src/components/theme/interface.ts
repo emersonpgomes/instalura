@@ -9,6 +9,8 @@ type TransitionType = string;
 
 type FontFamilyType = string;
 
+type ScreenWidth = number;
+
 interface IThemeConfigColor {
   color: ColorType;
 }
@@ -55,6 +57,14 @@ interface IThemeConfigTypographyVariants {
   smallestException: IThemeConfigTypography;
 }
 
+interface IThemeConfigBreakpoints {
+  xs: ScreenWidth;
+  sm: ScreenWidth;
+  md: ScreenWidth;
+  lg: ScreenWidth;
+  xl: ScreenWidth;
+}
+
 declare module 'styled-components' {
   export interface DefaultTheme {
     colors: IThemeColors;
@@ -62,5 +72,6 @@ declare module 'styled-components' {
     borderRadius: BorderRadiusType;
     transition: TransitionType;
     typography: IThemeConfigTypographyVariants;
+    breakpoints: IThemeConfigBreakpoints;
   }
 }

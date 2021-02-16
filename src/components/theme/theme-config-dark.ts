@@ -1,4 +1,5 @@
 import { DefaultTheme } from 'styled-components';
+import { breakpoints } from './breakpoints';
 import { typography } from './typography';
 
 export const themeConfigDark: DefaultTheme = {
@@ -37,4 +38,5 @@ export const themeConfigDark: DefaultTheme = {
   borderRadius: '12px',
   transition: '200ms ease-in-out',
   typography,
+  breakpoints,
 };
