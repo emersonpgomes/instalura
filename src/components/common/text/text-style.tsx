@@ -1,30 +1,43 @@
-import styled, { css } from 'styled-components';
+import styled, { css, DefaultTheme } from 'styled-components';
+import {
+  CSSPropStyle,
+  getBreakpointsMedia,
+  getVariantColor,
+  propToStyle
+} from '../../theme/utils';
 
-const paragraph1 = css`
-  ${({ theme }) => css`
-    font-size: ${theme.typography.paragraph1.fontSize};
-    font-weight: ${theme.typography.paragraph1.fontWeight};
-    line-height: ${theme.typography.paragraph1.lineHeight};
-  `}
-`;
-
-const smallestException = css`
-  ${({ theme }) => css`
-    font-size: ${theme.typography.smallestException.fontSize};
-    font-weight: ${theme.typography.smallestException.fontWeight};
-    line-height: ${theme.typography.smallestException.lineHeight};
-  `}
-`;
-
-export const TextStyleVariants = {
-  paragraph1,
-  smallestException
+function getTypographStyle(variant: keyof DefaultTheme['typography']) {
+  return css`
+    ${({ theme }) => css`
+      font-size: ${theme.typography[variant].fontSize};
+      font-weight: ${theme.typography[variant].fontWeight};
+      line-height: ${theme.typography[variant].lineHeight};
+    `}
+  `;
 }
 
-export interface TextStyleProps {
+export const TextStyleVariants = {
+  paragraph1: getTypographStyle('paragraph1'),
+  smallestException: getTypographStyle('smallestException'),
+  title: css`
+    ${getTypographStyle('titleXS')}
+    ${getBreakpointsMedia({
+      md: getTypographStyle('title'),
+    })}
+  `,
+};
+
+export interface TextStyleProps extends Omit<CSSPropStyle, 'color'> {
   variant: keyof typeof TextStyleVariants;
+  color?: 'tertiary.main' | 'tertiary.light';
 }
 
 export const TextStyle = styled.span<TextStyleProps>`
-   ${({ variant }) => TextStyleVariants[variant]}
+  ${({ variant = 'paragraph1' }) => TextStyleVariants[variant]}
+
+  color: ${getVariantColor('color', 'color')};
+
+  ${propToStyle('textAlign')}
+  ${propToStyle('marginBottom')}
+  ${propToStyle('margin')}
 `;
