@@ -1,5 +1,9 @@
 import styled, { css } from 'styled-components';
-import { getBreakpointsMedia, getVariantColor } from '../../theme/utils';
+import {
+  CSSPropStyle, getBreakpointsMedia,
+  getVariantColor,
+  propToStyle
+} from '../../theme/utils';
 import { TextStyleVariants } from '../text/text-style';
 
 const ButtonGhostStyle = css`
@@ -12,7 +16,7 @@ const ButtonDefaultStyle = css`
   background-color: ${getVariantColor('color')};
 `;
 
-export interface ButtonStyleProps {
+export interface ButtonStyleProps extends Omit<CSSPropStyle, 'color'> {
   ghost?: boolean;
   variant:
     | 'primary.main'
@@ -44,4 +48,7 @@ export const ButtonStyle = styled.button<ButtonStyleProps>`
   &:focus {
     opacity: 0.5;
   }
+
+  ${propToStyle('margin')}
+  ${propToStyle('display')}
 `;
