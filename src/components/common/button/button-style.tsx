@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
+import { CSSPropStyle } from '../../theme/interface';
 import {
-  CSSPropStyle, getBreakpointsMedia,
+  getBreakpointsMedia,
   getVariantColor,
   propToStyle
 } from '../../theme/utils';
@@ -16,7 +17,8 @@ const ButtonDefaultStyle = css`
   background-color: ${getVariantColor('color')};
 `;
 
-export interface ButtonStyleProps extends Omit<CSSPropStyle, 'color'> {
+export interface ButtonStyleProps
+  extends Pick<CSSPropStyle, 'margin' | 'display'> {
   ghost?: boolean;
   variant:
     | 'primary.main'

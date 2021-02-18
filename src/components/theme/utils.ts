@@ -1,14 +1,11 @@
 import _ from 'lodash';
-import {
-  css,
-  CSSObject,
-  CSSProperties,
-  DefaultTheme,
-  FlattenInterpolation,
-  FlattenSimpleInterpolation,
-  ThemeProps
-} from 'styled-components';
+import { css, DefaultTheme } from 'styled-components';
 import { breakpoints } from './breakpoints';
+import {
+  BreakpointKeysType,
+  CSSByBreakpointType,
+  CSSPropStyle
+} from './interface';
 
 export function getVariantColor<PropType extends { theme: DefaultTheme }>(
   themeColorProperty: string,
@@ -20,17 +17,8 @@ export function getVariantColor<PropType extends { theme: DefaultTheme }>(
   };
 }
 
-type BreakpointKeyType = keyof DefaultTheme['breakpoints'];
-
-type CSSByBreakpointType = {
-  [key in BreakpointKeyType]?:
-    | FlattenSimpleInterpolation
-    | FlattenInterpolation<ThemeProps<DefaultTheme>>
-    | CSSObject;
-};
-
 export function getBreakpointsMedia(cssByBreakpoint: CSSByBreakpointType) {
-  const breakpointKeys = Object.keys(breakpoints) as BreakpointKeyType[];
+  const breakpointKeys = Object.keys(breakpoints) as BreakpointKeysType[];
   return breakpointKeys
     .filter((key) => key in cssByBreakpoint)
     .map((key) => {
@@ -42,12 +30,6 @@ export function getBreakpointsMedia(cssByBreakpoint: CSSByBreakpointType) {
       `;
     });
 }
-
-export type CSSPropStyle = {
-  [cssKey in keyof CSSProperties]:
-    | CSSProperties[cssKey]
-    | { [key in BreakpointKeyType]?: CSSProperties[cssKey] };
-};
 
 export function propToStyle(propName: keyof CSSPropStyle) {
   return (props: CSSPropStyle) => {

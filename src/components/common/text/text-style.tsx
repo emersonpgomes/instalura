@@ -1,6 +1,6 @@
 import styled, { css, DefaultTheme } from 'styled-components';
+import { CSSPropStyle } from '../../theme/interface';
 import {
-  CSSPropStyle,
   getBreakpointsMedia,
   getVariantColor,
   propToStyle
@@ -27,7 +27,8 @@ export const TextStyleVariants = {
   `,
 };
 
-export interface TextStyleProps extends Omit<CSSPropStyle, 'color'> {
+export interface TextStyleProps
+  extends Pick<CSSPropStyle, 'textAlign' | 'marginBottom' | 'margin'> {
   variant: keyof typeof TextStyleVariants;
   color?: 'tertiary.main' | 'tertiary.light';
 }
