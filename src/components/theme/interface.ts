@@ -1,5 +1,5 @@
 // import original module declarations
-import 'styled-components';
+import { CSSObject, CSSProperties, DefaultTheme, FlattenInterpolation, FlattenSimpleInterpolation, ThemeProps } from 'styled-components';
 
 type ColorType = string;
 
@@ -75,3 +75,18 @@ declare module 'styled-components' {
     breakpoints: IThemeConfigBreakpoints;
   }
 }
+
+export type BreakpointKeysType = keyof IThemeConfigBreakpoints;
+
+export type CSSByBreakpointType = {
+ [key in BreakpointKeysType]?:
+   | FlattenSimpleInterpolation
+   | FlattenInterpolation<ThemeProps<DefaultTheme>>
+   | CSSObject;
+};
+
+export type CSSPropStyle = {
+  [cssKey in keyof CSSProperties]:
+    | CSSProperties[cssKey]
+    | { [key in BreakpointKeysType]?: CSSProperties[cssKey] };
+};
