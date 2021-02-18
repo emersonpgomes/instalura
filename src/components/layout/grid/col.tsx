@@ -1,13 +1,20 @@
 import styled, { css, FlattenSimpleInterpolation } from 'styled-components';
-import { BreakpointKeysType } from '../../theme/interface';
-import { getBreakpointsMedia } from '../../theme/utils';
+import { BreakpointKeysType, CSSPropStyle } from '../../theme/interface';
+import { getBreakpointsMedia, propToStyle } from '../../theme/utils';
 
 const MAX_GRID_COLUMNS = 12;
 
-interface GridColProps {
+interface GridColOwnProps {
   offset?: number | { [key in BreakpointKeysType]?: number };
   span: number | { [key in BreakpointKeysType]?: number };
 }
+
+type GridColCSSProps = Pick<
+  CSSPropStyle,
+  'display' | 'alignItems' | 'justifyContent' | 'flexDirection'
+>;
+
+export type GridColProps = GridColOwnProps & GridColCSSProps;
 
 function getColWidth(span: number) {
   return (100 * Math.min(span, MAX_GRID_COLUMNS)) / MAX_GRID_COLUMNS;
@@ -30,10 +37,10 @@ function getColOffsetStyle(offset: number) {
 }
 
 function getStyle(
-  propName: keyof GridColProps,
+  propName: keyof GridColOwnProps,
   getCSSFn: (value: number) => FlattenSimpleInterpolation
 ) {
-  return (prop: GridColProps) => {
+  return (prop: GridColOwnProps) => {
     const propValue = prop[propName];
 
     if (typeof propValue === 'number') {
@@ -58,4 +65,9 @@ export const GridCol = styled.div<GridColProps>`
 
   ${getStyle('span', getColSpanStyle)}
   ${getStyle('offset', getColOffsetStyle)}
+
+  ${propToStyle('display')}
+  ${propToStyle('alignItems')}
+  ${propToStyle('justifyContent')}
+  ${propToStyle('flexDirection')}
 `;

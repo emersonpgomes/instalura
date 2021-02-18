@@ -4,11 +4,17 @@ import { Button } from '../src/components/common/button';
 import { Menu } from '../src/components/common/menu';
 import { Text } from '../src/components/common/text';
 import { Layout } from '../src/components/layout';
+import { Box } from '../src/components/layout/box';
 import { Grid } from '../src/components/layout/grid';
 
 export default function Home() {
   return (
-    <Layout>
+    <Box
+      as={Layout}
+      backgroundImage="url(/images/bubbles.svg)"
+      backgroundRepeat="no-repeat"
+      backgroundPosition="bottom right"
+    >
       <Head>
         <title>Instalura - by: Emerson P. Gomes</title>
       </Head>
@@ -16,9 +22,21 @@ export default function Home() {
         <Menu />
       </Layout.Header>
       <Layout.Content>
-        <Grid.Container>
+        <Grid.Container
+          marginTop={{
+            xs: '32px',
+            md: 'auto',
+          }}
+        >
           <Grid.Row>
-            <Grid.Col offset={{ xs: 0, md: 1 }} span={{ xs: 12, md: 5 }}>
+            <Grid.Col
+              offset={{ xs: 0, md: 1 }}
+              span={{ xs: 12, md: 5 }}
+              display="flex"
+              alignItems="flex-start"
+              justifyContent="center"
+              flexDirection="column"
+            >
               <Text
                 variant="title"
                 tag="h1"
@@ -59,7 +77,7 @@ export default function Home() {
               <img
                 style={{ display: 'block', margin: 'auto' }}
                 src="/images/phones.png"
-                alt=""
+                alt="Imagem de celular com páginas internas do projeto com o perfil do Cage"
               />
             </Grid.Col>
           </Grid.Row>
@@ -79,6 +97,6 @@ export default function Home() {
           </a>
         </p>
       </Layout.Footer>
-    </Layout>
+    </Box>
   );
 }
